@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import './App.css'
+import './App.css';
+import './contact_table/List.css';
 import List from './contact_table/List';
 
 
@@ -7,11 +8,16 @@ class ContactListApp extends Component {
     constructor() {
         super();
         this.state = {
-            contacts: []
+            contacts: [],
+            filterContacts: []
         }
     }
 
     componentDidMount() {
+        this.addContacts();
+    }
+
+    addContacts = () => {
         const endpoint = 'https://teacode-recruitment-challenge.s3.eu-central-1.amazonaws.com/users.json';
 
         fetch(endpoint)
@@ -30,7 +36,21 @@ class ContactListApp extends Component {
             this.setState({
                 contacts: data
             }) 
-            console.log(data)
+
+            this.filterContactList();
+        })
+
+    }
+
+    filterContactList = () => {
+        this.setState((state) => {
+            let newContactList = state.contacts.filter((contact) => {
+                return(contact.first_name.includes(this._inputFilter.value));
+            });
+
+            return({
+                filterContacts: newContactList
+            })
         })
     }
 
@@ -41,7 +61,9 @@ class ContactListApp extends Component {
                     <h1>Contacts</h1>
                 </header>
 
-                <List contactList = {this.state.contacts}/>
+                <input ref={element => this._inputFilter = element} onChange={this.filterContactList} className="filter_input" type="text" placeholder="Filter"/>
+
+                <List contactList = {this.state.filterContacts} addContactsMethod = {this.addContacts}/>
 
             </>
         )
