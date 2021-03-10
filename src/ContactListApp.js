@@ -45,7 +45,7 @@ class ContactListApp extends Component {
     filterContactList = () => {
         this.setState((state) => {
             let newContactList = state.contacts.filter((contact) => {
-                return(contact.first_name.includes(this._inputFilter.value));
+                return(contact.first_name.includes(this._inputFilter.value) || contact.last_name.includes(this._inputFilter.value));
             });
 
             return({
