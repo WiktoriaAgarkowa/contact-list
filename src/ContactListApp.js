@@ -17,6 +17,16 @@ class ContactListApp extends Component {
         fetch(endpoint)
         .then(blob => blob.json())
         .then(data => {
+
+            data.sort(function (a,b) {
+                if (a.last_name > b.last_name) {
+                    return 1;
+                  }
+                  if (a.last_name < b.last_name) {
+                    return -1;
+                  }
+                  return 0;
+            });
             this.setState({
                 contacts: data
             }) 
