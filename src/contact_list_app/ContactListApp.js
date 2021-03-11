@@ -66,11 +66,10 @@ class ContactListApp extends Component {
             if (contact.id === id) {
                contact.active = !contact.active;
                console.log(contact.active)
-               console.log(e)
+               console.log(contact.id)
             }
             return contact;
         })
-    
     }
 
     filterContactList = () => {
