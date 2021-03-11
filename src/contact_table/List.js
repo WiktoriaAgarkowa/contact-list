@@ -7,25 +7,25 @@ class List extends Component {
         super(props);
     }
 
-    clickItem = (e) => {
-        console.log(e.target)
-        console.log(this)
-        // this.setState({isChecked: !this.state.isChecked})
-        // console.log(this.state.isChecked)
-    }
+    // clickItem = (el) => {
+    //     console.log(el);
+    //     this.checkboxEl.current.handleChange();
+    //     console.log(this.checkboxEl.current);
+    // }
+
+    
 
     render() {
         return(
             <>
                 <ul>
-                    {this.props.contactList.map(contact => <li onClick={this.clickItem.bind(this)} key={contact.id}>
+                    {this.props.contactList.map((contact) => <li onClick={(e) => this.props.checkBox(contact.id, contact)} key={contact.id}>
                         <img src={contact.avatar} alt="avatar"/>
                         
-                        <p>{contact.first_name + '  ' + contact.last_name}</p>
+                        {contact.firstName + '  ' + contact.lastName}
 
-                        {/* <input type="checkbox" defaultChecked = {this.state.isChecked}/> */}
+                        <input type="checkbox" defaultChecked={contact.active} />
 
-                        <Checkbox />
                     </li>)}
                 </ul>
             </>

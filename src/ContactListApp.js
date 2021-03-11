@@ -24,17 +24,35 @@ class ContactListApp extends Component {
         .then(blob => blob.json())
         .then(data => {
 
-            data.sort(function (a,b) {
-                if (a.last_name > b.last_name) {
+            let contactList =[];
+
+            data.forEach(el => {
+                let newContact = {
+                    firstName: el.first_name,
+                    lastName: el.last_name,
+                    id: el.id,
+                    avatar: el.avatar,
+                    active: false
+                }
+
+                contactList.push(newContact);
+                
+            });
+
+            console.log(contactList)
+
+            contactList.sort(function (a,b) {
+                if (a.lastName > b.firstName) {
                     return 1;
                   }
-                  if (a.last_name < b.last_name) {
+                  if (a.lastName < b.firstName) {
                     return -1;
                   }
                   return 0;
             });
+
             this.setState({
-                contacts: data
+                contacts: contactList
             }) 
 
             this.filterContactList();
@@ -42,10 +60,23 @@ class ContactListApp extends Component {
 
     }
 
+    clickItem = (id, e) => {
+
+        this.state.contacts.map(contact => {
+            if (contact.id === id) {
+               contact.active = !contact.active;
+               console.log(contact.active)
+               console.log(e)
+            }
+            return contact;
+        })
+    
+    }
+
     filterContactList = () => {
         this.setState((state) => {
             let newContactList = state.contacts.filter((contact) => {
-                return(contact.first_name.includes(this._inputFilter.value) || contact.last_name.includes(this._inputFilter.value));
+                return(contact.firstName.includes(this._inputFilter.value) || contact.lastName.includes(this._inputFilter.value));
             });
 
             return({
@@ -63,7 +94,7 @@ class ContactListApp extends Component {
 
                 <input ref={element => this._inputFilter = element} onChange={this.filterContactList} className="filter_input" type="text" placeholder="Filter"/>
 
-                <List contactList = {this.state.filterContacts} addContactsMethod = {this.addContacts}/>
+                <List contactList = {this.state.filterContacts} addContactsMethod = {this.addContacts} checkBox={this.clickItem}/>
 
             </>
         )

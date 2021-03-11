@@ -1,21 +1,25 @@
 import React, {Component} from 'react';
 import './List.css';
 
-class Chechbox extends Component {
+class Checkbox extends Component {
     constructor() {
         super();
         this.state = {
-            isChecked: "false"
+            isChecked: false
         }
     }
+
+    // handleChange = () => {
+    //     this.setState({isChecked: !this.state.isChecked});
+    // }
 
     render() {
         return (
             <>
-            <input type="checkbox" defoultchecked={this.state.isChecked}/>
+            <input type="checkbox" checked={this.props.isChecked} />
             </>
         );
     }
 }
 
-export default Chechbox;
+export default Checkbox;
