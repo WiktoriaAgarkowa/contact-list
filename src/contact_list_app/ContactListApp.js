@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import './App.css';
+import './ContactListApp.css';
 import './contact_table/List.css';
 import List from './contact_table/List';
 

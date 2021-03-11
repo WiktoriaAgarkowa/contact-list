@@ -1,4 +1,4 @@
-import ContactListApp from './ContactListApp';
+import ContactListApp from './contact_list_app/ContactListApp';
 
 function App() {
   return (
